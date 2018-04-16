@@ -39,16 +39,16 @@ describe('Schema1 tests', () => {
       expect(JSON.stringify(columns)).toEqual(
         JSON.stringify({
           users:
-            [{ content: 'id', type: 'INTEGER', relation: false },
-            { content: 'name', type: 'STRING', relation: false },
-            { content: 'createdAt', type: 'DATE', relation: false },
-            { content: 'updatedAt', type: 'DATE', relation: false }],
+            [{ content: 'id', type: 'INTEGER', relation: undefined },
+            { content: 'name', type: 'STRING', relation: undefined },
+            { content: 'createdAt', type: 'DATE', relation: undefined },
+            { content: 'updatedAt', type: 'DATE', relation: undefined }],
           posts:
-            [{ content: 'id', type: 'INTEGER', relation: false },
-            { content: 'votes', type: 'INTEGER', relation: false },
-            { content: 'createdAt', type: 'DATE', relation: false },
-            { content: 'updatedAt', type: 'DATE', relation: false },
-            { content: 'userId', type: 'INTEGER', relation: true }]
+            [{ content: 'id', type: 'INTEGER', relation: undefined },
+            { content: 'votes', type: 'INTEGER', relation: undefined },
+            { content: 'createdAt', type: 'DATE', relation: undefined },
+            { content: 'updatedAt', type: 'DATE', relation: undefined },
+            { content: 'userId', type: 'INTEGER', relation: {model: 'users', key: 'id'} }]
         })
       );
       done();
