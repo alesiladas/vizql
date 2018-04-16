@@ -19,6 +19,7 @@ const convertEdges = (schema) => {
         }
         if (references.length) edges[modelKey] = references;
     }
+    
     return edges;
 }
 
