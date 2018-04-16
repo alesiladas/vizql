@@ -37,19 +37,25 @@ describe('Schema1 tests', () => {
     it('Should convert schema to object.', (done) => {
       const columns = convertSchemas(schema1);
       expect(JSON.stringify(columns)).toEqual(
-        JSON.stringify({
-          users:
-            [{ content: 'id', type: 'INTEGER', relation: undefined },
-            { content: 'name', type: 'STRING', relation: undefined },
-            { content: 'createdAt', type: 'DATE', relation: undefined },
-            { content: 'updatedAt', type: 'DATE', relation: undefined }],
-          posts:
-            [{ content: 'id', type: 'INTEGER', relation: undefined },
-            { content: 'votes', type: 'INTEGER', relation: undefined },
-            { content: 'createdAt', type: 'DATE', relation: undefined },
-            { content: 'updatedAt', type: 'DATE', relation: undefined },
-            { content: 'userId', type: 'INTEGER', relation: {model: 'users', key: 'id'} }]
-        })
+        JSON.stringify([
+          { 
+            name: 'users',
+            columns:
+              [{ content: 'id', type: 'INTEGER', relation: undefined },
+              { content: 'name', type: 'STRING', relation: undefined },
+              { content: 'createdAt', type: 'DATE', relation: undefined },
+              { content: 'updatedAt', type: 'DATE', relation: undefined }],
+          },
+          {
+            name: 'posts',
+            columns:
+              [{ content: 'id', type: 'INTEGER', relation: undefined },
+              { content: 'votes', type: 'INTEGER', relation: undefined },
+              { content: 'createdAt', type: 'DATE', relation: undefined },
+              { content: 'updatedAt', type: 'DATE', relation: undefined },
+              { content: 'userId', type: 'INTEGER', relation: {model: 'users', key: 'id'} }]
+          }
+        ])
       );
       done();
     })
