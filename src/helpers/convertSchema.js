@@ -23,7 +23,11 @@ const convertSchemas = (schema) => {
             columns: columnNames, 
         });
     }
+<<<<<<< HEAD
+    console.log(schemas)
+=======
 
+>>>>>>> 61fe55e7edfe970e44dc9c204e129b3cb11a97d2
     return schemas;
 }
 
