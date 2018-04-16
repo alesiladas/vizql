@@ -21,11 +21,4 @@ const middlewareWrapper = schema => {
   return middleware;
 };
 
-
-
-
-
-
-
-
 module.exports = middlewareWrapper;

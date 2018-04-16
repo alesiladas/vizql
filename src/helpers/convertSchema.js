@@ -20,6 +20,7 @@ const convertSchemas = (schema) => {
 
         schemas[modelKey] = columnNames;
     }
+    console.log(schemas)
     return schemas;
 }
 
