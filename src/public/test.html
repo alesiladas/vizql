@@ -39,7 +39,6 @@
 
 <script>
     let data = { data };
-    console.log(data.schemas, data.links)
 
     var svg = d3.select("svg"),
         width = window.innerWidth,
@@ -123,7 +122,7 @@
         node.attr("transform", positionNode);
     }
 
-    function positionLink({ source, target }) {
+    function positionLink({ source, target, relationIndex }) {
         const sx = source.x + source.size.width
         const sy = source.y
         const tx = target.x
@@ -131,7 +130,7 @@
         const offset = sx < tx ? -10 : 10
         const midpoint = Math.abs(tx - sx) / 2 + (tx < sx ? tx : sx)
         const arrow = `l 0 -5 l ${-offset} 5 l ${offset} 5 l 0 -5`
-        return `M ${sx - offset} ${sy},
+        return `M ${sx - offset} ${sy+33+22*(relationIndex)},
             C ${midpoint} ${sy},
             ${midpoint} ${ty},
             ${tx + offset} ${ty + Math.abs(offset)}
