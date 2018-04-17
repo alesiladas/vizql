@@ -28,11 +28,13 @@
   },
   "homepage": "https://github.com/aegorenkov/vizql#readme",
   "dependencies": {
+    "d3": "^5.0.1",
     "expect": "^22.4.3",
     "express": "^4.16.3",
     "inflection": "^1.12.0",
     "mocha": "^5.1.0",
     "sequelize": "^4.37.6",
-    "sqlite3": "^4.0.0"
+    "sqlite3": "^4.0.0",
+    "svg": "^0.1.0"
   }
 }
