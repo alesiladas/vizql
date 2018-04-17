@@ -38,7 +38,8 @@
 <script src="https://d3js.org/d3.v4.min.js"></script>
 
 <script>
-    let data = { data }
+    let data = { data };
+    console.log(data.schemas, data.links)
 
     var svg = d3.select("svg"),
         width = window.innerWidth,
@@ -109,7 +110,6 @@
         d.size = d3.select(this).node().getBoundingClientRect()
     }))
 
-    console.log(links)
     simulation
         .nodes(nodes)
         .on("tick", ticked);
