@@ -33,16 +33,8 @@ const convertSchemas = (schema) => {
             columns: columnNames,
         });
     }
-<<<<<<< HEAD
     console.log(schemas)
-=======
-
-<<<<<<< HEAD
->>>>>>> 61fe55e7edfe970e44dc9c204e129b3cb11a97d2
-    return schemas;
-=======
     return { schemas, links };
->>>>>>> 268380868eb1cd9a2cd1f0e1636ced5173087446
 }
 
 module.exports = convertSchemas;
