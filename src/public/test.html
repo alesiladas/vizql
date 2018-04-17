@@ -58,20 +58,20 @@
     var nodes = data.schemas,
         nodeById = d3.map(nodes, d => d.name),
         links = data.links,
-        bilinks = []
+        bilinks = [];
 
     links.forEach(function (link) {
         var s = link.source = nodeById.get(link.source),
-            t = link.target = nodeById.get(link.target),
+            t = link.target = nodeById.get(link.target);
             i = {}; // intermediate node
         nodes.push(i);
-        links.push({ source: s, target: i }, { source: i, target: t });
+        links.push({ source: s, target: t });
         bilinks.push([s, i, t]);
     });
 
     var link = svg.selectAll(".link")
         .data(bilinks)
-        .enter().append("path")
+        .enter().append("line")
         .attr("class", "link")
         .attr("marker-end", "url(#end)"); //add arrow
 
@@ -101,8 +101,6 @@
     let row = table.selectAll('.child').data(d => d.columns).enter().append('tr')
     row.append('td').text(d => d.content)
     row.append('td').text(d => d.type)
-
-
 
     simulation
         .nodes(nodes)
