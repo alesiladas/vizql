@@ -33,7 +33,7 @@ const convertSchemas = (schema) => {
             columns: columnNames,
         });
     }
-    console.log(schemas)
+    
     return { schemas, links };
 }
 
