@@ -22,7 +22,6 @@
 <script>
 
     let data = { "schemas": [{ "name": "movies", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "title", "type": "STRING" }, { "content": "summary", "type": "STRING" }, { "content": "releaseDate", "type": "STRING" }, { "content": "runtime", "type": "STRING" }, { "content": "posterPath", "type": "STRING" }, { "content": "rating", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }] }, { "name": "character", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "characterName", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }] }, { "name": "moviecharacters", "columns": [{ "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }, { "content": "characterId", "type": "INTEGER", "relation": { "model": "characters", "key": "id" } }, { "content": "movieId", "type": "INTEGER", "relation": { "model": "movies", "key": "id" } }] }, { "name": "roles", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "roleType", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }] }, { "name": "characterroles", "columns": [{ "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }, { "content": "roleId", "type": "INTEGER", "relation": { "model": "roles", "key": "id" } }, { "content": "characterId", "type": "INTEGER", "relation": { "model": "characters", "key": "id" } }] }, { "name": "genres", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "genreName", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }] }, { "name": "moviegenres", "columns": [{ "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }, { "content": "movieId", "type": "INTEGER", "relation": { "model": "movies", "key": "id" } }, { "content": "genreId", "type": "INTEGER", "relation": { "model": "genres", "key": "id" } }] }, { "name": "tvseries", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "title", "type": "STRING" }, { "content": "genre", "type": "STRING" }, { "content": "startYear", "type": "STRING" }, { "content": "endYear", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }] }, { "name": "tvgenres", "columns": [{ "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }, { "content": "tvseryId", "type": "INTEGER", "relation": { "model": "tvseries", "key": "id" } }, { "content": "genreId", "type": "INTEGER", "relation": { "model": "genres", "key": "id" } }] }, { "name": "tvseasons", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "summary", "type": "STRING" }, { "content": "seasonNumber", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }, { "content": "tvseryId", "type": "INTEGER", "relation": { "model": "tvseries", "key": "id" } }] }, { "name": "tvepisodes", "columns": [{ "content": "id", "type": "INTEGER" }, { "content": "title", "type": "STRING" }, { "content": "summary", "type": "STRING" }, { "content": "airDate", "type": "STRING" }, { "content": "createdAt", "type": "DATE" }, { "content": "updatedAt", "type": "DATE" }, { "content": "tvseasonId", "type": "INTEGER", "relation": { "model": "tvseasons", "key": "id" } }] }], "links": [{ "source": "moviecharacters", "target": "character" }, { "source": "moviecharacters", "target": "movies" }, { "source": "characterroles", "target": "roles" }, { "source": "characterroles", "target": "character" }, { "source": "moviegenres", "target": "movies" }, { "source": "moviegenres", "target": "genres" }, { "source": "tvgenres", "target": "tvseries" }, { "source": "tvgenres", "target": "genres" }, { "source": "tvseasons", "target": "tvseries" }, { "source": "tvepisodes", "target": "tvseasons" }] }
-   
 </script>
 <script>
 
@@ -41,7 +40,7 @@
         .force("center", d3.forceCenter(width / 2, height / 2));
 
 
-// Build the arrow
+    // Build the arrow
     svg.append("svg:defs").selectAll("marker")
         .data(["end"])      // Different link/path types can be defined here
         .enter().append("svg:marker")    // This section adds in the arrows
@@ -55,17 +54,11 @@
         .append("svg:path")
         .attr("d", "M0,-5L10,0L0,5");
 
-    
+
     var nodes = data.schemas,
         nodeById = d3.map(nodes, d => d.name),
         links = data.links,
         bilinks = []
-
-    // console.log(JSON.stringify(links))
-    // var nodes = graph.nodes,
-    //     nodeById = d3.map(nodes, function (d) { return d.id; }),
-    //     links = graph.links,
-    //     bilinks = [];
 
     links.forEach(function (link) {
         var s = link.source = nodeById.get(link.source),
@@ -82,9 +75,10 @@
         .attr("class", "link")
         .attr("marker-end", "url(#end)"); //add arrow
 
+    var tableData = nodes.filter(n => n.name)
+
     var node = svg.selectAll(".node")
-        // .data(nodes.filter(function (d) { return d.id; }))
-        .data(nodes.filter(n => n.name))
+        .data(tableData)
         .enter().append("foreignObject")
         .attr("class", "node")
         .attr("width", 50)
@@ -104,16 +98,11 @@
         .attr('colspan', 2)
         .text(t => t.name)
 
-    // table.append(t => {
-    //     const rows = []
-    //     t.columns.forEach(({ content, type }) => {
-    //         const row = d3.create('xhtml:tr')
-    //         row.append('xhtml:td').text(content)
-    //         row.append('xhtml:td').text(type)
-    //         rows.push(row)
-    //     })
-    //     return rows
-    // })
+    let row = table.selectAll('.child').data(d => d.columns).enter().append('tr')
+    row.append('td').text(d => d.content)
+    row.append('td').text(d => d.type)
+
+
 
     simulation
         .nodes(nodes)
