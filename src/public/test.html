@@ -122,19 +122,25 @@
         node.attr("transform", positionNode);
     }
 
-    function positionLink({ source, target, relationIndex }) {
-        const sx = source.x + source.size.width
-        const sy = source.y
-        const tx = target.x
-        const ty = target.y
+    function positionLink(d) {
+        console.log(d)
+        // console.log(d.source)
+        // console.log(d.index, node.select('table').nodes())
+        // console.log(d.index, node.select('table').nodes()[d.index].clientWidth)
+        //33!!!!!!! +22!
+        const sx = d.source.x 
+        const sy = d.source.y
+        const tx = d.target.x
+        const ty = d.target.y
         const offset = sx < tx ? -10 : 10
-        const midpoint = Math.abs(tx - sx) / 2 + (tx < sx ? tx : sx)
+        const midpoint = Math.abs(tx - sx) + (tx < sx ? tx : sx)
         const arrow = `l 0 -5 l ${-offset} 5 l ${offset} 5 l 0 -5`
-        return `M ${sx - offset} ${sy+33+22*(relationIndex)},
-            C ${midpoint} ${sy},
-            ${midpoint} ${ty},
-            ${tx + offset} ${ty + Math.abs(offset)}
-            ${arrow}`
+        // return `M ${sx + node.select('table').nodes()[d.source.index].clientWidth +10} ${sy+33+22*(d.relationIndex)}, 
+        return `M ${sx + node.select('table').nodes()[d.source.index].clientWidth +10} ${sy+47+23*(d.relationIndex)}, 
+                C ${midpoint} ${sy},
+                ${midpoint} ${ty},
+                ${tx} ${ty}
+                ${arrow}`
     }
 
     function positionNode(d) {
