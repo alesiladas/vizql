@@ -113,9 +113,10 @@
         const sy = d.source.y
         const tx = d.target.x
         const ty = d.target.y
+        const midpoint = Math.abs(tx - sx) + (tx < sx ? tx : sx)
         return `M ${sx} ${sy},
-            C ${Math.abs(tx - sx)} ${sy},
-            ${Math.abs(tx - sx)} ${ty},
+            C ${midpoint} ${sy},
+            ${midpoint} ${ty},
             ${tx} ${ty}`
         //     return "M" + d[0].x + "," + d[0].y
         //         + "S" + d[1].x + "," + d[1].y
