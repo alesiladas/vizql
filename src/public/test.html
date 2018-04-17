@@ -57,6 +57,7 @@
 
     var nodes = data.schemas,
         nodeById = d3.map(nodes, d => d.name),
+<<<<<<< HEAD
         links = data.links,
         bilinks = [];
 
@@ -72,13 +73,23 @@
     var link = svg.selectAll(".link")
         .data(bilinks)
         .enter().append("line")
+=======
+        links = data.links
+
+    links.forEach(function (link) {
+        link.source = nodeById.get(link.source)
+        link.target = nodeById.get(link.target)
+    });
+
+    var link = svg.selectAll(".link")
+        .data(links)
+        .enter().append("path")
+>>>>>>> be6f3bfef862cfd83ad253e6c9504161e9d1b30a
         .attr("class", "link")
         .attr("marker-end", "url(#end)"); //add arrow
 
-    var tableData = nodes.filter(n => n.name)
-
     var node = svg.selectAll(".node")
-        .data(tableData)
+        .data(nodes)
         .enter().append("foreignObject")
         .attr("class", "node")
         .attr("width", 50)
@@ -116,9 +127,17 @@
     }
 
     function positionLink(d) {
-        return "M" + d[0].x + "," + d[0].y
-            + "S" + d[1].x + "," + d[1].y
-            + " " + d[2].x + "," + d[2].y;
+        const sx = d.source.x
+        const sy = d.source.y
+        const tx = d.target.x
+        const ty = d.target.y
+        return `M ${sx} ${sy},
+            C ${Math.abs(tx - sx)} ${sy},
+            ${Math.abs(tx - sx)} ${ty},
+            ${tx} ${ty}`
+        //     return "M" + d[0].x + "," + d[0].y
+        //         + "S" + d[1].x + "," + d[1].y
+        //         + " " + d[2].x + "," + d[2].y;
     }
 
     function positionNode(d) {
