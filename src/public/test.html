@@ -111,17 +111,20 @@
     }
 
     function positionLink(d) {
-        const sx = d.source.x
+        console.log(d)
+        // console.log(d.source)
+        // console.log(d.index, node.select('table').nodes())
+        // console.log(d.index, node.select('table').nodes()[d.index].clientWidth)
+        //33!!!!!!! +22!
+        const sx = d.source.x 
         const sy = d.source.y
         const tx = d.target.x
         const ty = d.target.y
-        return `M ${sx} ${sy},
-            C ${Math.abs(tx - sx)} ${sy},
-            ${Math.abs(tx - sx)} ${ty},
-            ${tx} ${ty+50}`
-        //     return "M" + d[0].x + "," + d[0].y
-        //         + "S" + d[1].x + "," + d[1].y
-        //         + " " + d[2].x + "," + d[2].y;
+        const midpoint = Math.abs(tx - sx) + (tx < sx ? tx : sx)
+        return `M ${sx + node.select('table').nodes()[d.source.index].clientWidth +10} ${sy+33+22*(index)}, 
+                C ${midpoint} ${sy},
+                ${midpoint} ${ty},
+                ${tx} ${ty}`
     }
 
     function positionNode(d) {
